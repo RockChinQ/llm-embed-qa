@@ -1,0 +1,9 @@
+numpy
+openai
+vectordb
+flask
+flask_cors
+psycopg2
+pgvector
+jinja2
+PyYaml
