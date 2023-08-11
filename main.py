@@ -45,8 +45,9 @@ def main():
         **cfg['resource'][0]
     )
     
-    thread = threading.Thread(target=resource.run)
-    thread.start()
+    # thread = threading.Thread(target=resource.run)
+    # thread.start()
+    resource.run()
     
     app = flask.Flask(__name__)
     flask_cors.CORS(app)

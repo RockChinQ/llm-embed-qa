@@ -27,12 +27,6 @@ class PGSQLAdapter(database.DatabaseManager):
             port=port
         )
         
-        self.dbname = dbname
-        self.user = user
-        self.password = password
-        self.host = host
-        self.port = port
-        
         register_vector(self.conn)
         
     def store(self, data: dict):
@@ -76,11 +70,13 @@ class PGSQLAdapter(database.DatabaseManager):
         return conn
 
     def get(self, embedding: np.array) -> list:
-        sql = 'SELECT id, name, content, embedding <=> %s AS distance FROM docs ORDER BY embedding <=> %s LIMIT 3'
-        with self.db_conn() as conn:
-            cursor = conn.cursor(cursor_factory=RealDictCursor)
-            values = (embedding, embedding)
-            cursor.execute(sql, values)
-            results = cursor.fetchall()
-            cursor.close()
-            return results
+        
+        sql = "SELECT id, name, content, embedding <=> %s AS distance FROM docs ORDER BY embedding <=> %s LIMIT 3"
+        
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        
+        sql_stat = cursor.mogrify(sql, (embedding, embedding,))
+        
+        cursor.execute(sql_stat)
+        
+        return cursor.fetchall()

@@ -29,7 +29,12 @@ class DocsDirResouceManager(manager.ResourceManager):
         
         for file in os.listdir(self.path):
             
-            if self.db.exists(file):
+            if not file.endswith('.md'):
+                continue
+            
+            name = file[:-3]
+            
+            if self.db.exists(name):
                 print(f'File {file} already exists in database, skipping...')
                 continue
             
@@ -40,11 +45,9 @@ class DocsDirResouceManager(manager.ResourceManager):
             
             emb = self.emb.get_embedding(text)
             
-            self.db.store({
-                'name': file,
-                'content': text,
-                'embedding': emb
-            })
+            doc = dict(name=name, content=text, embedding=emb)
+            
+            self.db.store(doc)
             print(f'File {file} stored in database.')
         
         print('All files stored in database.')
