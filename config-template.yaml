@@ -7,15 +7,15 @@ database:
     password: postgres
 embedding:
   - name: openai
+    api_key: sk-1234abcd
     model: text-embedding-ada-002
 llm:
   - name: openai
+    api_key: sk-1234abcd
     model: gpt-3.5-turbo
 resource:
   - name: docsdir
     path: docs
-openai:
-  api_key: sk-1234abcd
 prompt: |
   You are a question answering bot for a open source project.
   Always answer questions in the language of the questioner.

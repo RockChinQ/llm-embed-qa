@@ -24,8 +24,6 @@ def main():
     # 读取config.yaml
     with open('config.yaml', 'r', encoding="utf-8") as f:
         cfg = yaml.load(f, Loader=yaml.FullLoader)
-        
-    openai.api_key = cfg['openai']['api_key']
 
     pgsqldb = pgsql.PGSQLAdapter(
         **cfg['database'][0]
