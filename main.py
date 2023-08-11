@@ -53,6 +53,7 @@ def main():
     @app.route("/ask")
     def ask():
         content = flask.request.args.get('content')
+        strict = flask.request.args.get('strict')
         
         prompt_string = cfg['prompt']
         embedding = emb.get_embedding(content)
@@ -66,6 +67,13 @@ def main():
             prompt_string += cfg['guide'] % docstring
         else:
             print('No docs found, skipping...')
+            if strict == 'true':
+                return flask.jsonify(
+                    {
+                        'message': 'No docs found, skipping...',
+                        'doc_names': []
+                    }
+                )
         
         messages = [
             {
@@ -83,6 +91,7 @@ def main():
         return flask.jsonify(
             {
                 'message': resp,
+                'doc_names': [doc['name'] for doc in docs]
             }
         )
     

@@ -38,4 +38,6 @@ Question answering system built with vector dbs and LLMs.
 
 ## Usage
 
-`GET /ask?content=<question>`
+- `GET /ask`
+    - `content`: the content of the question
+    - `strict`: (Optional) skip LLM request if `strict=true` and no related answer found in vector db
