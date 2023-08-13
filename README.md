@@ -24,8 +24,8 @@ Question answering system built with vector dbs and LLMs.
        -e POSTGRES_USER=postgres \
        -e POSTGRES_DB=postgres \
        -e PGDATA=/var/lib/postgresql/data/pgdata \
-       -v /path/to/llm-embedding-sample/pg-data:/var/lib/postgresql/data \
-       -v /path/to/llm-embedding-sample/pg-init-script:/docker-entrypoint-initdb.d \
+       -v /path/to/llm-embedding-qa/pg-data:/var/lib/postgresql/data \
+       -v /path/to/llm-embedding-qa/pg-init-script:/docker-entrypoint-initdb.d \
        ankane/pgvector:latest
     ```
 
