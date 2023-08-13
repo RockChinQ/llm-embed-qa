@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 docs/
 config.yaml
+pg-data

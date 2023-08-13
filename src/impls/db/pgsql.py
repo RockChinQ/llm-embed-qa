@@ -10,12 +10,7 @@ from ...models.db import database
 class PGSQLAdapter(database.DatabaseManager):
     
     conn = None
-    
-    dbname = None
-    user = None
-    password = None
-    host = None
-    port = None
+    distance = 0.3
     
     def __init__(self, dbname: str, user: str, password: str, host: str, port: int, **kwargs):
         
@@ -28,6 +23,9 @@ class PGSQLAdapter(database.DatabaseManager):
         )
         
         register_vector(self.conn)
+        
+        if 'distance' in kwargs:
+            self.distance = kwargs['distance']
         
     def store(self, data: dict):
         sql = "INSERT INTO docs (name, content, embedding) VALUES (%s, %s, %s) RETURNING id"
@@ -58,17 +56,6 @@ class PGSQLAdapter(database.DatabaseManager):
         
         return cursor.fetchall()
 
-    def db_conn(self):
-        conn = psycopg2.connect(
-            user=self.user,
-            password=self.password,
-            database=self.dbname,
-            host=self.host,
-            port=self.port
-        )
-        register_vector(conn)
-        return conn
-
     def get(self, embedding: np.array) -> list:
         
         sql = "SELECT id, name, content, embedding <=> %s AS distance FROM docs ORDER BY embedding <=> %s LIMIT 3"
@@ -79,4 +66,12 @@ class PGSQLAdapter(database.DatabaseManager):
         
         cursor.execute(sql_stat)
         
-        return cursor.fetchall()
+        data = cursor.fetchall()
+        
+        result = []
+        
+        for d in data:
+            if d['distance'] < self.distance:
+                result.append(d)
+                
+        return result
