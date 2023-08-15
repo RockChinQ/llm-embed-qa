@@ -60,7 +60,7 @@ def main():
         
         docs = pgsqldb.get(embedding)
         
-        if len(docs) > 1:
+        if len(docs) >= 1:
             
             docstring = "\n\n".join([doc['content'] for doc in docs])
             
