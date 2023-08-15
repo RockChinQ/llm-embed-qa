@@ -6,6 +6,7 @@ database:
     user: postgres
     password: postgres
     distance: 0.25  # any material's distance larger than this will be considered as not similar
+    limit: 3  # the number of materials to be returned
 embedding:
   - name: openai
     api_key: sk-1234abcd

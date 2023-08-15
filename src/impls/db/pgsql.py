@@ -11,6 +11,7 @@ class PGSQLAdapter(database.DatabaseManager):
     
     conn = None
     distance = 0.3
+    limit = 3
     
     def __init__(self, dbname: str, user: str, password: str, host: str, port: int, **kwargs):
         
@@ -26,6 +27,9 @@ class PGSQLAdapter(database.DatabaseManager):
         
         if 'distance' in kwargs:
             self.distance = kwargs['distance']
+        
+        if 'limit' in kwargs:
+            self.limit = kwargs['limit']
         
     def store(self, data: dict):
         sql = "INSERT INTO docs (name, content, embedding) VALUES (%s, %s, %s) RETURNING id"
@@ -58,15 +62,23 @@ class PGSQLAdapter(database.DatabaseManager):
 
     def get(self, embedding: np.array) -> list:
         
-        sql = "SELECT id, name, content, embedding <=> %s AS distance FROM docs ORDER BY embedding <=> %s LIMIT 3"
+        sql = "SELECT id, name, content, embedding <=> %s AS distance FROM docs ORDER BY embedding <=> %s LIMIT %s"
         
         cursor = self.conn.cursor(cursor_factory=RealDictCursor)
         
-        sql_stat = cursor.mogrify(sql, (embedding, embedding,))
+        sql_stat = cursor.mogrify(sql, (embedding, embedding, self.limit))
         
         cursor.execute(sql_stat)
         
         data = cursor.fetchall()
+
+        brief = [{
+            "id": d['id'],
+            "name": d['name'],
+            "distance": d['distance']
+        } for d in data]
+
+        print(brief)
         
         result = []
         
