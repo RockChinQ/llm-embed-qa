@@ -161,3 +161,4 @@ cython_debug/
 docs/
 config.yaml
 pg-data
+/milvus
