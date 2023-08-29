@@ -7,3 +7,6 @@ psycopg2
 pgvector
 jinja2
 PyYaml
+protobuf
+grpcio-tools
+pymilvus==2.3.0

@@ -2,10 +2,10 @@
 import numpy as np
 import openai
 
-from ...models.embed import embed
+from ...models.embedding import embedding
 
 
-class OpenAIEmbedding(embed.EmbeddingProvider):
+class OpenAIEmbedding(embedding.EmbeddingProvider):
     
     model: str
     api_key: str

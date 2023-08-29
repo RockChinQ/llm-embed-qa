@@ -13,3 +13,7 @@ class EmbeddingProvider:
             text: The text to embed, search key of a document.
         """
         pass
+
+    def get_dim(self) -> int:
+        """Returns the dimension of the embedding."""
+        pass

@@ -11,7 +11,7 @@ class DatabaseManager:
     def del_all(self):
         pass
     
-    def store(self, doc: entities.Document):
+    def store(self, docs: list[entities.Document]):
         """Stores the document(with embedding set)."""
         pass
     
@@ -27,6 +27,6 @@ class DatabaseManager:
         """Deletes the document."""
         pass
     
-    def get(self, embedding: np.ndarray) -> entities.Document:
+    def search(self, embedding: np.ndarray) -> list[entities.Document]:
         pass
     

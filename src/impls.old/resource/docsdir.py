@@ -2,18 +2,18 @@ import os
 import shutil
 
 from src.models.db import database
-from src.models.embed import embed
+from src.models.embedding import embedding
 from ...models.resource import manager
 
 
 class DocsDirResouceManager(manager.ResourceManager):
     
     db: database.DatabaseManager
-    emb: embed.EmbeddingProvider
+    emb: embedding.EmbeddingProvider
     
     path: str='docs'
     
-    def __init__(self, db: database.DatabaseManager, emb: embed.EmbeddingProvider, path: str, **kwargs):
+    def __init__(self, db: database.DatabaseManager, emb: embedding.EmbeddingProvider, path: str, **kwargs):
         self.db = db
         self.emb = emb
         self.path = path
