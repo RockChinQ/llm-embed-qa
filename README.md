@@ -33,7 +33,7 @@ Question answering system built with vector dbs and LLMs.
 
 4. Run `python main.py`, edit `config.yaml` to set your `api_key` of OpenAI.
 5. Put your `markdown` format documents in `docs` folder.
-    - There are the wiki files of [QchatGPT](https://github.com/RockChinQ/QChatGPT) in `docs_examples` folder.
+    - There are the wiki files of [QChatGPT](https://github.com/RockChinQ/QChatGPT) in `docs_examples` folder.
 6. Run `python main.py` again, it will automatically build the vector database and start the server.
 
 ## Usage
